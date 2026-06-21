@@ -1,0 +1,28 @@
+html.local-transition-pending body {
+  opacity: 0;
+}
+
+html.local-transition-ready body,
+body {
+  opacity: 1;
+}
+
+html.local-transition-ready body,
+html.local-transition-leaving body {
+  transition: opacity 220ms ease;
+}
+
+html.local-transition-leaving body {
+  opacity: 0;
+}
+
+html.local-transition-leaving {
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.local-transition-ready body,
+  html.local-transition-leaving body {
+    transition: none;
+  }
+}

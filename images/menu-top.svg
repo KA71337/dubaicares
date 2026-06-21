@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="6px" viewBox="0 0 24 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>Artboard</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M-315,6.4349338 L1.01494977,6.4349338 C1.93508825,6.4349338 2.82709274,6.1177035 3.54060964,5.53671429 L9.23716876,0.898226572 C10.6263443,-0.232925292 12.5982054,-0.302487404 14.0636366,0.727961395 L21.1444425,5.70697947 C21.8181479,6.1807096 22.6216613,6.4349338 23.4452505,6.4349338 Z" id="path-1"></path>
+        <filter x="-12.4%" y="-466.2%" width="124.8%" height="1405.4%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="12" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="12" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.0356374547 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Rectangle-11-Copy-2">
+            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+        </g>
+    </g>
+</svg>
