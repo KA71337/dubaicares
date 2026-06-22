@@ -1,0 +1,27 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": true,
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/our-work.html", "destination": "/our-work/", "permanent": true },
+    { "source": "/volunteer.html", "destination": "/volunteer/", "permanent": true },
+    { "source": "/support-us.html", "destination": "/support-us/", "permanent": true },
+    { "source": "/supports-us_donate.html", "destination": "/donate/", "permanent": true },
+    {
+      "source": "/supports-us_volunteering-opportunities.html",
+      "destination": "/volunteering-opportunities/",
+      "permanent": true
+    },
+    { "source": "/initiatives.html", "destination": "/initiatives/", "permanent": true },
+    { "source": "/maintenance.html", "destination": "/maintenance/", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/our-work", "destination": "/our-work/" },
+    { "source": "/volunteer", "destination": "/volunteer/" },
+    { "source": "/support-us", "destination": "/support-us/" },
+    { "source": "/donate", "destination": "/donate/" },
+    { "source": "/volunteering-opportunities", "destination": "/volunteering-opportunities/" },
+    { "source": "/initiatives", "destination": "/initiatives/" },
+    { "source": "/maintenance", "destination": "/maintenance/" }
+  ]
+}

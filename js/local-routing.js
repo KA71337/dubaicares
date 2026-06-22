@@ -32,6 +32,7 @@
     /\.(?:pdf|docx?|xlsx?|pptx?|zip|rar|7z|jpe?g|png|gif|webp|svg|mp4|mp3|mov|avi|webm|woff2?|ttf|eot)$/i;
   var LOCAL_ASSET_PATHS = /^(?:css|js|img|images|fonts|files|concrete|application)\//i;
   var transitionTimer = null;
+  var BASE_PATH = detectBasePath();
 
   function trimSlashes(path) {
     return path.replace(/^\/+|\/+$/g, "");
@@ -51,6 +52,57 @@
     return path || "/";
   }
 
+  function detectBasePath() {
+    var scripts = document.getElementsByTagName("script");
+    var scriptUrl = null;
+    var index;
+    var script;
+    var src;
+
+    for (index = scripts.length - 1; index >= 0; index -= 1) {
+      script = scripts[index];
+      src = script.getAttribute("src") || "";
+
+      if (/js\/local-routing\.js(?:[?#].*)?$/i.test(src)) {
+        try {
+          scriptUrl = new URL(src, window.location.href);
+        } catch (error) {
+          scriptUrl = null;
+        }
+        break;
+      }
+    }
+
+    if (!scriptUrl) {
+      return "/";
+    }
+
+    return (
+      scriptUrl.pathname
+        .replace(/\/js\/local-routing\.js$/i, "/")
+        .replace(/\/?$/, "/") || "/"
+    );
+  }
+
+  function stripBasePath(pathname) {
+    var path = normalizePath(pathname);
+    var base = normalizePath(BASE_PATH).replace(/\/+$/g, "");
+
+    if (!base || base === "/") {
+      return path;
+    }
+
+    if (path === base) {
+      return "/";
+    }
+
+    if (path.indexOf(base + "/") === 0) {
+      return path.slice(base.length) || "/";
+    }
+
+    return path;
+  }
+
   function isLocalOrigin(url) {
     return (
       url.protocol === "file:" ||
@@ -60,14 +112,23 @@
   }
 
   function routeForPath(pathname) {
-    var normalized = normalizePath(pathname);
+    var normalized = stripBasePath(pathname);
     var cleanPath = normalized.toLowerCase();
     var slug = trimSlashes(cleanPath);
     var fileName = slug.split("/").pop();
+    var parentSlug;
     var maintenanceRoute = HTML_ROUTES["maintenance.html"];
 
     if (!slug || slug === "index" || slug === "index.html") {
       return HTML_ROUTES["index.html"];
+    }
+
+    if (fileName === "index.html") {
+      parentSlug = slug.replace(/\/index\.html$/, "");
+
+      if (CLEAN_ROUTES["/" + parentSlug]) {
+        return CLEAN_ROUTES["/" + parentSlug];
+      }
     }
 
     if (HTML_ROUTES[fileName]) {
@@ -110,14 +171,15 @@
     hash = hash || "";
 
     if (window.location.protocol === "file:") {
-      if (route.clean === "/") {
-        return currentFileBase() + search + hash;
-      }
-
-      return currentFileBase() + route.clean.slice(1) + search + hash;
+      return navigationHrefFor(route, search, hash);
     }
 
-    return route.clean + search + hash;
+    return (
+      BASE_PATH +
+      (route.clean === "/" ? "" : route.clean.replace(/^\/+/, "") + "/") +
+      search +
+      hash
+    );
   }
 
   function navigationHrefFor(route, search, hash) {
